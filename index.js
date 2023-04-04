@@ -10,10 +10,10 @@ const server = require("http").Server(app);
 const io = require("socket.io")(server);
 const csvtojson = require('csvtojson')
 
-// app.set('view engine', 'html');
-// app.engine('html', require('ejs').renderFile)
-// app.use(express.json({limit: '50mb'}));
-// app.use(express.urlencoded({limit: '50mb'}));
+app.set('view engine', 'html');
+app.engine('html', require('ejs').renderFile)
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb'}));
 app.use('/asset', express.static(path.join(__dirname, 'asset')))
 
 app.get('/', function (req, res) {
