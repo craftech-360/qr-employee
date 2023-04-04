@@ -58,18 +58,20 @@ function downloadReceipt() {
 const data = document.getElementById('myForm');
 html2canvas(data,{allowTaint:true}).then(async(canvas) => {
 const image64 = canvas.toDataURL();
-const data = { image64 };
-const options1 = {
-    method: 'POST',
-    headers: {
-    'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-};
-const response = await fetch('http://localhost:3000/upload', options1).then( () => {
+console.log(image64);
+socket.emit('getUrl', image64)
+// const data = { image64 };
+// const options1 = {
+//     method: 'POST',
+//     headers: {
+//     'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify(data)
+// };
+// const response = await fetch('http://localhost:3000/upload', options1).then( () => {
 
-    console.log('here');
-})
+//     console.log('here');
+// })
 })
 }
 

@@ -34,8 +34,9 @@ mongoose.connect(mongo_URI, {useNewUrlParser:true, useUnifiedTopology:true})
 server.listen(port, () => console.log(`Server started on Port ${port}`))
 
 app.post("/upload", (req, res) => {
-  // console.log(req.body);
+  console.log(req);
   const data = req.body;
+  // console.log(data.image64);
   const imageData = data.image64.replace(/^data:image\/\w+;base64,/, '');
    const buffer = Buffer.from(imageData, 'base64');
 
@@ -74,6 +75,19 @@ io.on('connection', (socket) => {
       io.emit('userList', result)
     }
     asyncCall();
+  })
+
+  socket.on('getUrl' ,(e) => {
+    // console.log(e);
+    const imageData = e.replace(/^data:image\/\w+;base64,/, '');
+    const buffer = Buffer.from(imageData, 'base64');
+ 
+   fs.writeFile(`./uploads/img.png`, buffer, err => {
+     if (err) {  res.status(500).send({ error: 'Error saving image' })} 
+     else {  
+       io.emit('navigate')
+       }
+   });
   })
 
   socket.on('getUser' , (e) => {
