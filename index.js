@@ -91,7 +91,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('getUser' , (e) => {
-    console.log(e);
+    // console.log(e);
     async function asyncCall() {
       // await User.updateOne({"uniquecode":e},{$set: {"isAttended":true}})
       const result = await User.findOne( { "uniquecode": e.toLowerCase() } )
